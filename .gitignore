@@ -1,0 +1,15 @@
+*.o
+
+# Generated MOC, resource and UI files
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+
+*.exe
+*.dll
+nefJPGConverter
+
+# Windows-specific files
+Thumbs.db
+desktop.ini
+*~
