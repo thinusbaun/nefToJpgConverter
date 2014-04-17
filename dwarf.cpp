@@ -1,13 +1,19 @@
 #include "dwarf.hpp"
 
-Dwarf::Dwarf(QObject *parent = 0, QString inputFolder, QString outputFolder, QString file)
+Dwarf::Dwarf(QString inputFolder, QString outputFolder, QString file, QObject *parent = 0)
 {
   this->parent = parent;
   this->inputFolder = inputFolder;
   this->outputFolder = outputFolder;
   this->file = file;
   this->stage = 0;
-  connect(this,SIGNAL(finished()), this, SLOT(insideFinished()));
+  this->setWorkingDirectory(inputFolder);
+  connect(this,SIGNAL(finished(int , QProcess::ExitStatus )), this, SLOT(insideFinished(int , QProcess::ExitStatus )));
+}
+
+Dwarf::~Dwarf()
+{
+
 }
 
 void Dwarf::start()
@@ -17,7 +23,7 @@ void Dwarf::start()
   QProcess::start("exiftool", arguments);
 }
 
-void Dwarf::insideFinished()
+void Dwarf::insideFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
   if(++stage == 2)
   {
@@ -27,8 +33,8 @@ void Dwarf::insideFinished()
   {
     emit jobPercentChanged(50);
     QStringList arguments;
-    arguments << "-overwrite_original_in_place" << "-tagsfromfile" <<  "COŚŚŚŚ" << "-ext";
-    arguments << "JPG" << "jepg/changeFilename!";
+    arguments << "-overwrite_original_in_place" << "-tagsfromfile" <<  file << "-ext";
+    arguments << "JPG" << "jpeg/"+changeFileExt();
     QProcess::start("exiftool", arguments);
   }
 }

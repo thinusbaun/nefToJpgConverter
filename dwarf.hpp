@@ -5,14 +5,15 @@ class Dwarf : public QProcess
 {
     Q_OBJECT	
     private:
-	QString file;
-	QString inputFolder;
-	QString outputFolder;
-        char stage;
-        QString changeFileExt();
+      QString file;
+      QString inputFolder;
+      QString outputFolder;
+      char stage;
+      QString changeFileExt();
+      QObject *parent;
 
     public:
-      Dwarf(QObject *parent = 0, QString inputFolder, QString outputFolder, QString file);
+      Dwarf(QString inputFolder, QString outputFolder, QString file, QObject *parent);
       ~Dwarf();
       void start();
 
@@ -21,6 +22,6 @@ class Dwarf : public QProcess
       void jobFinished();
 
     private slots:
-      void insideFinished();
+      void insideFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 };
