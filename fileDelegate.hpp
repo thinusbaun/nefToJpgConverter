@@ -1,7 +1,9 @@
 #include <QDebug>
 #include <QAbstractItemDelegate>
 #include <QApplication>
-//#include <QSize>
+#include <QFont>
+#include <QFontMetrics>
+#include <QPainter>
 
 class FileDelegate : public QAbstractItemDelegate
 {

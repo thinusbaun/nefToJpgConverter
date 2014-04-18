@@ -1,5 +1,4 @@
 #include "fileDelegate.hpp"
-#include <QPainter>
 
 FileDelegate::FileDelegate(QObject *parent = 0)
 {
@@ -28,5 +27,15 @@ void FileDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
 QSize FileDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-  return QSize(10,12);
+  if (index.column() == 0)
+  {
+    QFontMetrics *metrics = new QFontMetrics(QFont());
+    QSize tmp = metrics->size(Qt::TextSingleLine, index.data(Qt::UserRole+2).toString());
+    qDebug() << tmp;
+    delete metrics;
+    return tmp;
+  } else
+  {
+    return QSize(10,15);
+  }
 }
