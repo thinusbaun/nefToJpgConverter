@@ -8,6 +8,7 @@
 #include <QDir>
 #include "fileDelegate.hpp"
 #include "tableModel.hpp"
+#include "jobsQueue.hpp"
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +21,7 @@ class MainWindow : public QMainWindow
     QFileDialog *m_file_dialog;
     TableModel *m_model;
     FileDelegate *m_delegate;
+    JobsQueue *m_queue;
   private slots:
     void runDirDialog();
   public: 

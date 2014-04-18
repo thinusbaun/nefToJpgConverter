@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
   m_widget = new QWidget(this);
   this->setCentralWidget(m_widget);
   m_view = new QTableView(this);
-  m_run_button = new QPushButton(this);
+  m_run_button = new QPushButton("Wybierz folder i konwertuj.", this);
   m_widget->setLayout(m_layout);
   m_layout->addWidget(m_view);
   m_layout->addWidget(m_run_button);
@@ -36,12 +36,12 @@ void MainWindow::runDirDialog()
   if (m_file_dialog->exec())
   {
     QDir().mkpath(m_file_dialog->selectedFiles()[0]+"/jpeg/");
-    qDebug() << m_file_dialog->selectedFiles()[0];
     QStringList filters;
     QDir dir(m_file_dialog->selectedFiles()[0]);
     filters << "*.nef";
     dir.setNameFilters(filters);
-    qDebug() <<dir.entryList(filters);
+    m_model->addItems(dir.entryList(filters));
+    m_queue = new JobsQueue(m_file_dialog->selectedFiles()[0], dir.entryList(filters));
     //dodać tutaj dodanie do listy i do kolejki
   }
 }
