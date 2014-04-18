@@ -1,4 +1,5 @@
 #include <QAbstractTableModel>
+#include <QDebug>
 
 struct file
 {
@@ -20,5 +21,6 @@ class TableModel : public QAbstractTableModel
     QVariant data(const QModelIndex& index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     void addItem(file m_file);
+    void addItems(QStringList files);
 };
 

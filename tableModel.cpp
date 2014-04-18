@@ -60,3 +60,14 @@ void TableModel::addItem(file m_file)
   m_files.append(m_file);
   endInsertRows();
 }
+
+void TableModel::addItems(QStringList files)
+{
+  foreach (QString str, files)
+  {
+    file tmp;
+    tmp.fileName = str;
+    tmp.progress = 0;
+    addItem(tmp);
+  }
+}
