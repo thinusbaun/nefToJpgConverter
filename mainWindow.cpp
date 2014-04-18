@@ -1,4 +1,5 @@
 #include "mainWindow.hpp"
+#include <QHeaderView>
 
 MainWindow::MainWindow(QWidget *parent)
 {
@@ -14,6 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
   m_file_dialog->setFileMode(QFileDialog::Directory);
   m_file_dialog->setOption(QFileDialog::ShowDirsOnly);
   connect(m_run_button, SIGNAL(pressed()), this, SLOT(runDirDialog()));
+  m_delegate = new FileDelegate(m_view);
+  m_model = new TableModel(m_view);
+  m_view->setItemDelegate(m_delegate);
+  m_view->setModel(m_model);
+  m_view->resizeColumnsToContents();
+  m_view->horizontalHeader()->setStretchLastSection(true);
+
 }
 
 MainWindow::~MainWindow()

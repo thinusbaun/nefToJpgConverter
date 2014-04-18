@@ -6,6 +6,8 @@
 #include <QWidget>
 #include <QFileDialog>
 #include <QDir>
+#include "fileDelegate.hpp"
+#include "tableModel.hpp"
 
 class MainWindow : public QMainWindow
 {
@@ -16,6 +18,8 @@ class MainWindow : public QMainWindow
     QPushButton *m_run_button;
     QWidget *m_widget;
     QFileDialog *m_file_dialog;
+    TableModel *m_model;
+    FileDelegate *m_delegate;
   private slots:
     void runDirDialog();
   public: 
