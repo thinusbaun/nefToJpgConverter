@@ -44,7 +44,26 @@ void MainWindow::runDirDialog()
     m_view->resizeColumnsToContents();
     m_queue = new JobsQueue(m_file_dialog->selectedFiles()[0], dir.entryList(filters));
     connect(m_queue, SIGNAL(jobProgressChanged(QString , int )), m_model, SLOT(jobProgressChanged(QString, int)));
+    connect(m_queue, SIGNAL(jobsEnded( int )), this, SLOT(jobsEnded(int)));
     m_queue->startJobs();
   }
 }
 
+void MainWindow::jobsEnded(int time)
+{
+    QString formattedTime;
+   
+    int hours = time/(1000*60*60);
+    int minutes = (time-(hours*1000*60*60))/(1000*60);
+    int seconds = (time-(minutes*1000*60)-(hours*1000*60*60))/1000;
+    int milliseconds = time-(seconds*1000)-(minutes*1000*60)-(hours*1000*60*60);
+
+    formattedTime.append(QString("%1").arg(hours, 2, 10, QLatin1Char('0')) + ":" +
+    QString( "%1" ).arg(minutes, 2, 10, QLatin1Char('0')) + ":" +
+    QString( "%1" ).arg(seconds, 2, 10, QLatin1Char('0')) + ":" +
+    QString( "%1" ).arg(milliseconds, 3, 10, QLatin1Char('0')));
+    QMessageBox msgBox;
+    msgBox.setText("Zdjęcia skonwertowane w czasie: " + formattedTime);
+    msgBox.exec();
+
+}

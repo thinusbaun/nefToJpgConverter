@@ -3,6 +3,7 @@
 #include <QThread>
 #include <QVector>
 #include "dwarf.hpp"
+#include <QElapsedTimer>
 
 class JobsQueue : public QObject
 {
@@ -12,6 +13,8 @@ class JobsQueue : public QObject
     QString m_directory;
     QStringList m_file_list;
     QVector<Dwarf*> m_dwarfs;
+    QElapsedTimer *m_timer;
+    bool ended;
 
   private slots:
     void passJobPercentChanged(QString fileName, int percent);
@@ -24,4 +27,5 @@ class JobsQueue : public QObject
 
   signals:
     void jobProgressChanged(QString fileName, int percent);
+    void jobsEnded(int time);
 };

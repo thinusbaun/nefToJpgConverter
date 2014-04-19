@@ -4,6 +4,7 @@ JobsQueue::JobsQueue(QString directory, QStringList fileList)
 {
   m_directory = directory;
   m_file_list = fileList;
+  ended = false;
 }
 
 JobsQueue::~JobsQueue()
@@ -13,6 +14,8 @@ JobsQueue::~JobsQueue()
 
 void JobsQueue::startJobs()
 {
+  m_timer = new QElapsedTimer();
+  m_timer->start();
   for (int i = 0; i<QThread::idealThreadCount(); i++)
   {
     m_dwarfs.append(new Dwarf(m_directory, m_directory+QString("/jpeg/"), this));
@@ -37,6 +40,13 @@ void JobsQueue::startNextJob()
         m_file_list.removeAt(0);
         break;
       }
+    }
+  } else
+  {
+    if (!ended)
+    {
+      ended = true;
+      emit jobsEnded(m_timer->elapsed());
     }
   }
 }

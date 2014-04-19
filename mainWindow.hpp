@@ -9,6 +9,7 @@
 #include "fileDelegate.hpp"
 #include "tableModel.hpp"
 #include "jobsQueue.hpp"
+#include <QMessageBox>
 
 class MainWindow : public QMainWindow
 {
@@ -24,6 +25,7 @@ class MainWindow : public QMainWindow
     JobsQueue *m_queue;
   private slots:
     void runDirDialog();
+    void jobsEnded(int time);
   public: 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
