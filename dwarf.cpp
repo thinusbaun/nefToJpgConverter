@@ -1,11 +1,10 @@
 #include "dwarf.hpp"
 
-Dwarf::Dwarf(QString inputFolder, QString outputFolder, QString file, QObject *parent = 0)
+Dwarf::Dwarf(QString inputFolder, QString outputFolder, QObject *parent = 0)
 {
   this->parent = parent;
   this->inputFolder = inputFolder;
   this->outputFolder = outputFolder;
-  this->file = file;
   this->stage = 0;
   this->setWorkingDirectory(inputFolder);
   connect(this,SIGNAL(finished(int , QProcess::ExitStatus )), this, SLOT(insideFinished(int , QProcess::ExitStatus )));
@@ -42,4 +41,10 @@ void Dwarf::insideFinished(int exitCode, QProcess::ExitStatus exitStatus)
 QString Dwarf::changeFileExt()
 {
   return file.replace("NEF", "jpg", Qt::CaseInsensitive);
+}
+
+void Dwarf::startNewJob(Qstring file)
+{
+  this->file = file;
+  this->start;
 }

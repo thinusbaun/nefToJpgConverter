@@ -13,9 +13,10 @@ class Dwarf : public QProcess
       QObject *parent;
 
     public:
-      Dwarf(QString inputFolder, QString outputFolder, QString file, QObject *parent);
+      Dwarf(QString inputFolder, QString outputFolder, QObject *parent);
       ~Dwarf();
       void start();
+      void startNewJob(QString file);
 
     signals:
       void jobPercentChanged(int percent);
