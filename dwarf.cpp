@@ -1,10 +1,11 @@
 #include "dwarf.hpp"
 
-Dwarf::Dwarf(QString inputFolder, QString outputFolder, QObject *parent = 0)
+Dwarf::Dwarf(QString inputFolder, QString outputFolder, bool saveExif, QObject *parent = 0)
 {
   this->parent = parent;
   this->inputFolder = inputFolder;
   this->outputFolder = outputFolder;
+  this->saveExif = saveExif;
   this->stage = 0;
   this->setWorkingDirectory(inputFolder);
   connect(this,SIGNAL(finished(int , QProcess::ExitStatus )), this, SLOT(insideFinished(int , QProcess::ExitStatus )));
@@ -24,7 +25,8 @@ void Dwarf::start()
 
 void Dwarf::insideFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-  if(++stage == 2)
+  unsigned char finalState = (saveExif) ? 2 : 1;
+  if(++stage == finalState)
   {
     emit jobPercentChanged(file, 100);
   } else

@@ -15,12 +15,13 @@ class JobsQueue : public QObject
     QVector<Dwarf*> m_dwarfs;
     QElapsedTimer *m_timer;
     bool ended;
+    bool m_save_exif;
 
   private slots:
     void passJobPercentChanged(QString fileName, int percent);
 
   public:
-    JobsQueue(QString directory, QStringList fileList);
+    JobsQueue(QString directory, QStringList fileList, bool saveExif);
     ~JobsQueue();
     void startJobs();
     void startNextJob();

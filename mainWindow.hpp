@@ -10,6 +10,7 @@
 #include "tableModel.hpp"
 #include "jobsQueue.hpp"
 #include <QMessageBox>
+#include <QCheckBox>
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +21,7 @@ class MainWindow : public QMainWindow
     QPushButton *m_run_button;
     QWidget *m_widget;
     QFileDialog *m_file_dialog;
+    QCheckBox *m_exif_box;
     TableModel *m_model;
     FileDelegate *m_delegate;
     JobsQueue *m_queue;

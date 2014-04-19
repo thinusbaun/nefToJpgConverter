@@ -1,10 +1,11 @@
 #include "jobsQueue.hpp"
 
-JobsQueue::JobsQueue(QString directory, QStringList fileList)
+JobsQueue::JobsQueue(QString directory, QStringList fileList, bool saveExif)
 {
   m_directory = directory;
   m_file_list = fileList;
   m_timer = NULL;
+  m_save_exif = saveExif;
   ended = false;
 }
 
@@ -27,7 +28,7 @@ void JobsQueue::startJobs()
   m_timer->start();
   for (int i = 0; i<QThread::idealThreadCount(); i++)
   {
-    m_dwarfs.append(new Dwarf(m_directory, m_directory+QString("/jpeg/"), this));
+    m_dwarfs.append(new Dwarf(m_directory, m_directory+QString("/jpeg/"), m_save_exif, this));
     connect(m_dwarfs.last(), SIGNAL(jobPercentChanged(QString, int)), this, SLOT(passJobPercentChanged(QString, int)));
   }
   for (int i = 0; i<m_dwarfs.size();i++)

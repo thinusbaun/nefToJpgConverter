@@ -13,9 +13,10 @@ class Dwarf : public QProcess
       char stage;
       QString changeFileExt();
       QObject *parent;
+      bool saveExif;
 
     public:
-      Dwarf(QString inputFolder, QString outputFolder, QObject *parent);
+      Dwarf(QString inputFolder, QString outputFolder, bool saveExif,  QObject *parent);
       ~Dwarf();
       void start();
       void startNewJob(QString file);
