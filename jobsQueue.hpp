@@ -20,5 +20,5 @@ class JobsQueue : public QObject
     void startJobs();
     void startNextJob();
   signals:
-    void jobPercentChanged(QString fileName, int percent);
+    void jobProgressChanged(QString fileName, int percent);
 };

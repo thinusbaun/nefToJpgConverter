@@ -71,3 +71,17 @@ void TableModel::addItems(QStringList files)
     addItem(tmp);
   }
 }
+
+void TableModel::jobProgressChanged(QString fileName, int percent)
+{
+  for (int i = 0;i<m_files.size();i++)
+  {
+    if (m_files[i].fileName.split(".")[0] == fileName.split(".")[0])
+    {
+      qDebug() << percent;
+      QModelIndex index = createIndex(i, 1);
+      m_files[i].progress = percent;
+      emit dataChanged(index, index);
+    }
+  }
+}

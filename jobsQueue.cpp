@@ -43,7 +43,7 @@ void JobsQueue::startNextJob()
 
 void JobsQueue::passJobPercentChanged(QString fileName, int percent)
 {
-  qDebug() << "passJobPercentChanged  " << fileName << percent;
+  emit  jobProgressChanged(fileName, percent);
   if (percent == 100)
   {
     startNextJob();

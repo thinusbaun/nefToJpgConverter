@@ -9,10 +9,13 @@ struct file
 
 class TableModel : public QAbstractTableModel
 {
+  Q_OBJECT
   private:
     QVector<file> m_files;
     QVector<QString> m_columns;
 
+  public slots:
+    void jobProgressChanged(QString fileName, int percent);
   public:
     TableModel(QObject *parent);
     ~TableModel();
