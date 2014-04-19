@@ -4,12 +4,21 @@ JobsQueue::JobsQueue(QString directory, QStringList fileList)
 {
   m_directory = directory;
   m_file_list = fileList;
+  m_timer = NULL;
   ended = false;
 }
 
 JobsQueue::~JobsQueue()
 {
-
+  for (int i = 0; i<m_dwarfs.size(); i++)
+  {
+    delete m_dwarfs[i];
+  }
+  m_dwarfs.clear();
+  if (!m_timer)
+  {
+    delete m_timer;
+  }
 }
 
 void JobsQueue::startJobs()

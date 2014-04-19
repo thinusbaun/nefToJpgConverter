@@ -29,6 +29,12 @@ MainWindow::~MainWindow()
   delete m_run_button;
   delete m_view;
   delete m_layout;
+  delete m_widget;
+  delete m_file_dialog;
+  delete m_delegate;
+  delete m_view;
+  delete m_model;
+  delete m_queue;
 }
   
 void MainWindow::runDirDialog()
