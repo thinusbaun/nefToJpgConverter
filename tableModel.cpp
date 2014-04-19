@@ -2,6 +2,7 @@
 
 TableModel::TableModel(QObject *parent = 0)
 {
+  m_view = dynamic_cast<QTableView*>(parent);
   m_columns.append(QString("Nazwa pliku"));
   m_columns.append(QString("Postęp"));
 }
@@ -77,6 +78,8 @@ void TableModel::jobProgressChanged(QString fileName, int percent)
     {
       QModelIndex index = createIndex(i, 1);
       m_files[i].progress = percent;
+      m_view->setCurrentIndex(index);
+
       emit dataChanged(index, index);
     }
   }

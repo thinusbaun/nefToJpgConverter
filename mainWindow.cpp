@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
   m_view->setModel(m_model);
   m_view->resizeColumnsToContents();
   m_view->horizontalHeader()->setStretchLastSection(true);
+  m_view->setAutoScroll(true);
 }
 
 MainWindow::~MainWindow()

@@ -1,5 +1,6 @@
 #include <QAbstractTableModel>
 #include <QDebug>
+#include <QTableView>
 
 struct file
 {
@@ -13,6 +14,7 @@ class TableModel : public QAbstractTableModel
   private:
     QVector<file> m_files;
     QVector<QString> m_columns;
+    QTableView *m_view;
 
   public slots:
     void jobProgressChanged(QString fileName, int percent);
