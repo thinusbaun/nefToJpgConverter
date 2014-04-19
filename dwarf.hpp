@@ -1,3 +1,5 @@
+#ifndef DWARF_HPP
+#define DWARF_HPP
 #include <QProcess>
 #include <QDebug>
 
@@ -19,10 +21,11 @@ class Dwarf : public QProcess
       void startNewJob(QString file);
 
     signals:
-      void jobPercentChanged(int percent);
-      void jobFinished();
+      void jobPercentChanged(QString fileName, int percent);
+      void jobFinished(QString fileName);
 
     private slots:
       void insideFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 };
+#endif

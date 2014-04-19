@@ -26,11 +26,11 @@ void Dwarf::insideFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
   if(++stage == 2)
   {
-    emit jobPercentChanged(100);
-    emit jobFinished();
+    emit jobPercentChanged(file, 100);
+    emit jobFinished(file);
   } else
   {
-    emit jobPercentChanged(50);
+    emit jobPercentChanged(file, 50);
     QStringList arguments;
     arguments << "-overwrite_original_in_place" << "-tagsfromfile" <<  file << "-ext";
     arguments << "JPG" << "jpeg/"+changeFileExt();
@@ -43,8 +43,9 @@ QString Dwarf::changeFileExt()
   return file.replace("NEF", "jpg", Qt::CaseInsensitive);
 }
 
-void Dwarf::startNewJob(Qstring file)
+void Dwarf::startNewJob(QString file)
 {
   this->file = file;
-  this->start;
+  this->stage = 0;
+  this->start();
 }
