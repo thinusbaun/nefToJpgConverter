@@ -2,16 +2,14 @@
 
 TableModel::TableModel(QObject *parent = 0)
 {
-  m_columns.append(QString("1"));
-  m_columns.append(QString("2"));
-
+  m_columns.append(QString("Nazwa pliku"));
+  m_columns.append(QString("Postęp"));
 }
 
 TableModel::~TableModel()
 {
 
 }
-
 
 int TableModel::rowCount(const QModelIndex &parent) const
 {
@@ -44,7 +42,6 @@ QVariant TableModel::data(const QModelIndex& index, int role) const
  
 QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
- 
   if(role == Qt::DisplayRole && orientation == Qt::Horizontal)
   {
     return m_columns[section];
@@ -78,7 +75,6 @@ void TableModel::jobProgressChanged(QString fileName, int percent)
   {
     if (m_files[i].fileName.split(".")[0] == fileName.split(".")[0])
     {
-      qDebug() << percent;
       QModelIndex index = createIndex(i, 1);
       m_files[i].progress = percent;
       emit dataChanged(index, index);

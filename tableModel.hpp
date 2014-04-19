@@ -16,6 +16,7 @@ class TableModel : public QAbstractTableModel
 
   public slots:
     void jobProgressChanged(QString fileName, int percent);
+  
   public:
     TableModel(QObject *parent);
     ~TableModel();

@@ -1,11 +1,12 @@
 #include <QApplication>
 #include <QDebug>
+#include "mainWindow.hpp"
 #include "dwarf.hpp"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    Dwarf *d = new Dwarf(QString("/tmp"), QString("/tmp"), QString("SGC_0001.NEF"), 0);
-    d->start();
+    MainWindow *window = new MainWindow();
+    window->show();
     return app.exec();
 }

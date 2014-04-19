@@ -12,13 +12,16 @@ class JobsQueue : public QObject
     QString m_directory;
     QStringList m_file_list;
     QVector<Dwarf*> m_dwarfs;
+
   private slots:
     void passJobPercentChanged(QString fileName, int percent);
+
   public:
     JobsQueue(QString directory, QStringList fileList);
     ~JobsQueue();
     void startJobs();
     void startNextJob();
+
   signals:
     void jobProgressChanged(QString fileName, int percent);
 };

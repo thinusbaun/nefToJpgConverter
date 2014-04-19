@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
   m_view->setModel(m_model);
   m_view->resizeColumnsToContents();
   m_view->horizontalHeader()->setStretchLastSection(true);
-
 }
 
 MainWindow::~MainWindow()
@@ -41,11 +40,10 @@ void MainWindow::runDirDialog()
     filters << "*.nef";
     dir.setNameFilters(filters);
     m_model->addItems(dir.entryList(filters));
+    m_view->resizeColumnsToContents();
     m_queue = new JobsQueue(m_file_dialog->selectedFiles()[0], dir.entryList(filters));
     connect(m_queue, SIGNAL(jobProgressChanged(QString , int )), m_model, SLOT(jobProgressChanged(QString, int)));
-    //m_model->jobProgressChanged(QString("SGC_0001.NEF"), 60);
     m_queue->startJobs();
-    //dodać tutaj dodanie do listy i do kolejki
   }
 }
 
