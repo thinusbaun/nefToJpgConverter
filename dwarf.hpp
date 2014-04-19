@@ -22,7 +22,6 @@ class Dwarf : public QProcess
 
     signals:
       void jobPercentChanged(QString fileName, int percent);
-      void jobFinished(QString fileName);
 
     private slots:
       void insideFinished(int exitCode, QProcess::ExitStatus exitStatus);

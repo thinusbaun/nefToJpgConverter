@@ -27,7 +27,6 @@ void Dwarf::insideFinished(int exitCode, QProcess::ExitStatus exitStatus)
   if(++stage == 2)
   {
     emit jobPercentChanged(file, 100);
-    emit jobFinished(file);
   } else
   {
     emit jobPercentChanged(file, 50);

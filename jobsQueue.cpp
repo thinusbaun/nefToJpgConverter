@@ -16,7 +16,6 @@ void JobsQueue::startJobs()
   for (int i = 0; i<QThread::idealThreadCount(); i++)
   {
     m_dwarfs.append(new Dwarf(m_directory, m_directory+QString("/jpeg/"), this));
-    connect(m_dwarfs.last(), SIGNAL(jobFinished(QString)), this, SLOT(passJobFinished(QString)));
     connect(m_dwarfs.last(), SIGNAL(jobPercentChanged(QString, int)), this, SLOT(passJobPercentChanged(QString, int)));
   }
   for (int i = 0; i<m_dwarfs.size();i++)
@@ -42,15 +41,11 @@ void JobsQueue::startNextJob()
   }
 }
 
-
-void JobsQueue::passJobFinished(QString fileName)
-{
-  qDebug() << fileName << "  passJobFinished";
-  startNextJob();
-}
-
 void JobsQueue::passJobPercentChanged(QString fileName, int percent)
 {
   qDebug() << "passJobPercentChanged  " << fileName << percent;
+  if (percent == 100)
+  {
+    startNextJob();
+  }
 }
-
