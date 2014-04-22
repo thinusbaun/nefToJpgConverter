@@ -51,6 +51,7 @@ void MainWindow::runDirDialog()
     QDir dir(m_file_dialog->selectedFiles()[0]);
     filters << "*.nef";
     dir.setNameFilters(filters);
+    m_model->clear();
     m_model->addItems(dir.entryList(filters));
     m_view->resizeColumnsToContents();
     m_queue = new JobsQueue(m_file_dialog->selectedFiles()[0], dir.entryList(filters), m_exif_box->isChecked());

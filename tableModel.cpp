@@ -39,6 +39,7 @@ QVariant TableModel::data(const QModelIndex& index, int role) const
         break;
     }
   }
+  return QVariant();
 }
  
 QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -83,4 +84,11 @@ void TableModel::jobProgressChanged(QString fileName, int percent)
       emit dataChanged(index, index);
     }
   }
+}
+
+void TableModel::clear()
+{
+  beginResetModel();
+  m_files.clear();
+  endResetModel();
 }

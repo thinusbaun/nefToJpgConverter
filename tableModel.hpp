@@ -28,5 +28,6 @@ class TableModel : public QAbstractTableModel
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     void addItem(file m_file);
     void addItems(QStringList files);
+    void clear();
 };
 
