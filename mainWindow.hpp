@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QMainWindow>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QTableView>
 #include <QPushButton>
 #include <QWidget>
@@ -17,8 +18,10 @@ class MainWindow : public QMainWindow
   Q_OBJECT
   private:
     QVBoxLayout *m_layout;
+    QHBoxLayout *m_h_layout;
     QTableView *m_view;
     QPushButton *m_run_button;
+    QPushButton *m_abort;
     QWidget *m_widget;
     QFileDialog *m_file_dialog;
     QCheckBox *m_exif_box;
@@ -28,6 +31,7 @@ class MainWindow : public QMainWindow
   private slots:
     void runDirDialog();
     void jobsEnded(int time);
+    void abortClicked();
   public: 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();

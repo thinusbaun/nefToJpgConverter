@@ -16,6 +16,7 @@ class JobsQueue : public QObject
     QElapsedTimer *m_timer;
     bool ended;
     bool m_save_exif;
+    bool aborted;
 
   private slots:
     void passJobPercentChanged(QString fileName, int percent);
@@ -25,6 +26,7 @@ class JobsQueue : public QObject
     ~JobsQueue();
     void startJobs();
     void startNextJob();
+    void abort();
 
   signals:
     void jobProgressChanged(QString fileName, int percent);

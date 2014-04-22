@@ -7,6 +7,7 @@ JobsQueue::JobsQueue(QString directory, QStringList fileList, bool saveExif)
   m_timer = NULL;
   m_save_exif = saveExif;
   ended = false;
+  aborted = false;
 }
 
 JobsQueue::~JobsQueue()
@@ -39,7 +40,7 @@ void JobsQueue::startJobs()
 
 void JobsQueue::startNextJob()
 {
-  if (m_file_list.size() != 0)
+  if (m_file_list.size() != 0 && !aborted)
   {
     for (int i = 0;i<m_dwarfs.size();i++)
     {
@@ -68,4 +69,9 @@ void JobsQueue::passJobPercentChanged(QString fileName, int percent)
   {
     startNextJob();
   }
+}
+
+void JobsQueue::abort()
+{
+  aborted = true;
 }
