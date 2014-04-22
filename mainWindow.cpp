@@ -16,7 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
   m_layout->addWidget(m_exif_box);
   m_file_dialog = new QFileDialog(this);
   m_file_dialog->setFileMode(QFileDialog::Directory);
-  m_file_dialog->setOption(QFileDialog::ShowDirsOnly);
+  m_file_dialog->setOption(QFileDialog::ShowDirsOnly, true);
+  m_file_dialog->setOption(QFileDialog::DontUseNativeDialog, true);
   connect(m_run_button, SIGNAL(pressed()), this, SLOT(runDirDialog()));
   m_delegate = new FileDelegate(m_view);
   m_model = new TableModel(m_view);
