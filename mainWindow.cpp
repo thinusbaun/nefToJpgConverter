@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
   m_view->resizeColumnsToContents();
   m_view->horizontalHeader()->setStretchLastSection(true);
   m_view->setAutoScroll(true);
+  this->setWindowTitle(QString("Konwerter NEF -> JPG"));
 }
 
 MainWindow::~MainWindow()
@@ -94,10 +95,7 @@ void MainWindow::jobsEnded(int time, QString path)
   int reply = msgBox.exec();
   if (reply == QMessageBox::Yes)
   {
-      qDebug() << path;
-    //QString path = QDir::toNativeSeparators(path);
     QUrl url("file:///"+QDir::toNativeSeparators(path));
-    qDebug() << url;
     QDesktopServices::openUrl(url);
   }
 }
