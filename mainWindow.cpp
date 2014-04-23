@@ -1,5 +1,6 @@
 #include "mainWindow.hpp"
 #include <QHeaderView>
+#include <QDesktopServices>
 
 MainWindow::MainWindow(QWidget *parent)
 {
@@ -64,14 +65,14 @@ void MainWindow::runDirDialog()
     m_view->resizeColumnsToContents();
     m_queue = new JobsQueue(m_file_dialog->selectedFiles()[0], dir.entryList(filters), m_exif_box->isChecked());
     connect(m_queue, SIGNAL(jobProgressChanged(QString , int )), m_model, SLOT(jobProgressChanged(QString, int)));
-    connect(m_queue, SIGNAL(jobsEnded( int )), this, SLOT(jobsEnded(int)));
+    connect(m_queue, SIGNAL(jobsEnded( int, QString )), this, SLOT(jobsEnded(int, QString)));
     m_queue->startJobs();
     m_run_button->setEnabled(false);
     m_abort->setEnabled(true);
   }
 }
 
-void MainWindow::jobsEnded(int time)
+void MainWindow::jobsEnded(int time, QString path)
 {
   m_run_button->setEnabled(true);
   m_abort->setEnabled(false);
@@ -87,9 +88,18 @@ void MainWindow::jobsEnded(int time)
   QString( "%1" ).arg(seconds, 2, 10, QLatin1Char('0')) + ":" +
   QString( "%1" ).arg(milliseconds, 3, 10, QLatin1Char('0')));
   QMessageBox msgBox;
-  msgBox.setText("Zdjęcia skonwertowane w czasie: " + formattedTime);
-  msgBox.exec();
-
+  msgBox.setText("Zdjęcia skonwertowane w czasie: " + formattedTime + "\nOtworzyć folder z plikami JPEG?");
+  msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+  msgBox.setDefaultButton(QMessageBox::Yes);
+  int reply = msgBox.exec();
+  if (reply == QMessageBox::Yes)
+  {
+      qDebug() << path;
+    //QString path = QDir::toNativeSeparators(path);
+    QUrl url("file:///"+QDir::toNativeSeparators(path));
+    qDebug() << url;
+    QDesktopServices::openUrl(url);
+  }
 }
 
 void MainWindow::abortClicked()

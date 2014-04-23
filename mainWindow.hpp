@@ -30,7 +30,7 @@ class MainWindow : public QMainWindow
     JobsQueue *m_queue;
   private slots:
     void runDirDialog();
-    void jobsEnded(int time);
+    void jobsEnded(int time, QString path);
     void abortClicked();
   public: 
     explicit MainWindow(QWidget *parent = 0);

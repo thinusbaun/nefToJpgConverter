@@ -30,5 +30,5 @@ class JobsQueue : public QObject
 
   signals:
     void jobProgressChanged(QString fileName, int percent);
-    void jobsEnded(int time);
+    void jobsEnded(int time, QString path);
 };

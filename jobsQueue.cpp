@@ -57,7 +57,7 @@ void JobsQueue::startNextJob()
     if (!ended)
     {
       ended = true;
-      emit jobsEnded(m_timer->elapsed());
+      emit jobsEnded(m_timer->elapsed(), m_directory+QString("/jpeg/"));
     }
   }
 }
