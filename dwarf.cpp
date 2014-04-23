@@ -25,17 +25,24 @@ void Dwarf::start()
 
 void Dwarf::insideFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-  unsigned char finalState = (saveExif) ? 2 : 1;
-  if(++stage == finalState)
+  if (exitCode  != 1 && exitCode != 0)
   {
-    emit jobPercentChanged(file, 100);
+    qDebug() << exitCode;
+    emit jobPercentChanged(file, -1);
   } else
   {
-    emit jobPercentChanged(file, 50);
-    QStringList arguments;
-    arguments << "-overwrite_original_in_place" << "-tagsfromfile" <<  file << "-ext";
-    arguments << "JPG" << "jpeg/"+changeFileExt();
-    QProcess::start("exiftool", arguments);
+    unsigned char finalState = (saveExif) ? 2 : 1;
+    if(++stage == finalState)
+    {
+      emit jobPercentChanged(file, 100);
+    } else
+    {
+      emit jobPercentChanged(file, 50);
+      QStringList arguments;
+      arguments << "-overwrite_original_in_place" << "-tagsfromfile" <<  file << "-ext";
+      arguments << "JPG" << "jpeg/"+changeFileExt();
+      QProcess::start("exiftool", arguments);
+    }
   }
 }
 

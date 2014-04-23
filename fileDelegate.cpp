@@ -1,4 +1,5 @@
 #include "fileDelegate.hpp"
+#include <QPalette>
 
 FileDelegate::FileDelegate(QObject *parent = 0)
 {
@@ -14,8 +15,15 @@ void FileDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
     progressBar.rect = option.rect;
     progressBar.minimum = 0;
     progressBar.maximum = 100;
-    progressBar.progress = progress;
-    progressBar.text = QString::number(progress) + QString("%");
+    if (progress == -1)
+    {
+      progressBar.progress = 0;
+      progressBar.text = "BŁĄD!";
+    } else
+    {
+      progressBar.progress = progress;
+      progressBar.text = QString::number(progress) + QString("%");
+    }
     progressBar.textVisible = true;
     QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBar,  painter);
   } else if (index.column() == 0)
