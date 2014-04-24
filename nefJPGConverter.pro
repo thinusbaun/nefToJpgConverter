@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = nefJPGConverter
 INCLUDEPATH += .
-QT += widgets
+QT += widgets gui
 LDFLAGS += -ggdb
 
 # Input

@@ -12,6 +12,7 @@
 #include "jobsQueue.hpp"
 #include <QMessageBox>
 #include <QCheckBox>
+#include <QUrl>
 
 class MainWindow : public QMainWindow
 {
